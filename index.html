@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida - Técnico en Programación | CBTa N°197</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons CDN -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070D1B;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Degradado de fondo resplandeciente */
+        .bg-glow-radial {
+            background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.08) 35%, rgba(7, 13, 27, 0) 70%);
+        }
+
+        /* Animaciones personalizadas */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+        }
+
+        @keyframes floatFast {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-18px) scale(1.05); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        @keyframes textShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animate-float-slow { animation: floatSlow 7s ease-in-out infinite; }
+        .animate-float-fast { animation: floatFast 5s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulseGlow 4s ease-in-out infinite; }
+        
+        .shimmer-text {
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc, #38bdf8);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 6s ease infinite;
+        }
+
+        /* Efecto Glassmorphism */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card-hover:hover {
+            background: rgba(30, 41, 59, 0.75);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(14, 165, 233, 0.25);
+            transform: translateY(-4px);
+        }
+
+        /* Barra de progreso superior decorativa */
+        .top-gradient-bar {
+            background: linear-gradient(90deg, #38bdf8 0%, #6366f1 50%, #10b981 100%);
+        }
+
+        /* Cursor personalizado tipo luz */
+        #spotlight {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, rgba(0,0,0,0) 70%);
+            transform: translate(-50%, -50%);
+            transition: transform 0.05s linear;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
+
+    <!-- Luz flotante que sigue al cursor -->
+    <div id="spotlight"></div>
+
+    <!-- Canvas de partículas conectadas (Red Neuronal / Código) -->
+    <canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+    <!-- Barra brillante superior -->
+    <div class="top-gradient-bar h-1.5 w-full fixed top-0 left-0 z-50 shadow-lg shadow-cyan-500/20"></div>
+
+    <!-- Círculos de brillo difuminados -->
+    <div class="fixed top-10 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+    <div class="fixed bottom-10 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style="animation-delay: 2s;"></div>
+
+    <!-- CABECERA INSTITUCIONAL -->
+    <header class="relative z-20 w-full max-w-7xl mx-auto px-6 pt-8 pb-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-4 group cursor-pointer">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
+                <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+                    <i class="ph-bold ph-plant text-emerald-400 text-2xl"></i>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-xl font-extrabold tracking-wider text-white flex items-center gap-2">
+                    CBTa N°197
+                    <span class="text-xs font-mono font-normal px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">DGETA</span>
+                </h2>
+                <p class="text-xs text-slate-400 font-medium">Centro de Bachillerato Tecnológico agropecuario</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 bg-slate-900/80 px-4 py-2 rounded-full border border-slate-800 backdrop-blur-md shadow-inner">
+            <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+            </span>
+            <span class="text-xs font-mono text-slate-300">Semestre Septiembre — Enero 2027</span>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL (Hero & Tarjetas) -->
+    <main class="relative z-10 w-full max-w-6xl mx-auto px-6 py-6 flex-grow flex flex-col justify-center items-center">
+        
+        <!-- Insignia del Curso con destello -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/90 border border-cyan-500/30 text-cyan-400 text-xs font-mono tracking-widest uppercase mb-8 shadow-lg shadow-cyan-500/10 animate-float-slow">
+            <i class="ph-fill ph-code-simple text-sm text-cyan-400"></i>
+            <span>CURSO 2026 — 2027</span>
+            <i class="ph-bold ph-sparkle text-amber-300"></i>
+        </div>
+
+        <!-- TÍTULO PRINCIPAL CON MOVIMIENTO Y SHIMMER -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-center tracking-tight text-white mb-6 leading-tight max-w-4xl">
+            BIENVENIDOS AL CURSO DE <br class="hidden sm:block" />
+            <span class="shimmer-text">TÉCNICO EN PROGRAMACIÓN</span>
+        </h1>
+
+        <p class="text-slate-400 text-center text-base sm:text-lg max-w-2xl mb-10 font-normal leading-relaxed">
+            Formando la próxima generación de desarrolladores con visión innovadora, herramientas modernas de software y metodologías de trabajo ágil.
+        </p>
+
+        <!-- TARJETA CONTENEDORA DEL MÓDULO II (Efecto 3D Tilt) -->
+        <div id="hero-card" class="w-full glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden transition-all duration-300 border border-slate-800">
+            <!-- Brillo de esquina decorativo -->
+            <div class="absolute -top-24 -right-24 w-60 h-60 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-60 h-60 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Encabezado del Módulo -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-800/80">
+                <div class="flex items-start sm:items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30 flex-shrink-0 animate-float-fast">
+                        <i class="ph-bold ph-cpu text-3xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-cyan-400">Especialidad Técnica</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5">
+                            MÓDULO II
+                        </h2>
+                    </div>
+                </div>
+                <div class="bg-slate-900/90 border border-slate-800 px-5 py-3 rounded-2xl backdrop-blur-sm">
+                    <p class="text-slate-300 font-medium text-sm sm:text-base flex items-center gap-2">
+                        <i class="ph-fill ph-check-circle text-emerald-400 text-lg"></i>
+                        Desarrolla software con herramientas orientadas a la productividad
+                    </p>
+                </div>
+            </div>
+
+            <!-- TARJETAS INTERACTIVAS DE LOS SUBMÓDULOS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- SUBMÓDULO 1 -->
+                <div onclick="toggleSubmoduleDetails(1)" class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer relative group overflow-hidden border border-slate-800/80">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono font-semibold">
+                            SUBMÓDULO 1
+                        </span>
+                        <i class="ph-bold ph-caret-circle-right text-2xl text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
+                        Emplea frameworks para el desarrollo de software
+                    </h3>
+                    
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Aprende a acelerar la creación de aplicaciones web modernas utilizando herramientas, librerías y estructuras de trabajo profesionales.
+                    </p>
+
+                    <!-- Tags / Tecnologías relacionadas -->
+                    <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800 flex items-center gap-1">
+                            <i class="ph-bold ph-file-html text-orange-400"></i> HTML5 & CSS3
+                        </span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800 flex items-center gap-1">
+                            <i class="ph-bold ph-lightning text-yellow-400"></i> Frameworks
+                        </span>
+                    </div>
+
+                    <!-- Panel expandible con detalles adicionales (JS) -->
+                    <div id="submodule-1-details" class="hidden mt-4 pt-4 border-t border-slate-800/80 text-xs text-slate-300 space-y-2 animate-fade-in">
+                        <p class="text-cyan-300 font-semibold flex items-center gap-1">
+                            <i class="ph-fill ph-star"></i> Enfoque Práctico:
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 text-slate-400 pl-1">
+                            <li>Diseño web responsivo e interactivo.</li>
+                            <li>Componentes modulares de interfaz de usuario.</li>
+                            <li>Integración de estilos eficientes y modernos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SUBMÓDULO 2 -->
+                <div onclick="toggleSubmoduleDetails(2)" class="glass-card glass-card-hover rounded-2xl p-6 cursor-pointer relative group overflow-hidden border border-slate-800/80">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono font-semibold">
+                            SUBMÓDULO 2
+                        </span>
+                        <i class="ph-bold ph-caret-circle-right text-2xl text-slate-500 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all"></i>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+                        Aplica metodologías ágiles para el desarrollo de software
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Gestiona proyectos tecnológicos con marcos de trabajo dinámicos, colaborativos y enfocados en entregas continuas de alto valor.
+                    </p>
+
+                    <!-- Tags / Tecnologías relacionadas -->
+                    <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800 flex items-center gap-1">
+                            <i class="ph-bold ph-kanban text-indigo-400"></i> Scrum & Kanban
+                        </span>
+                        <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800 flex items-center gap-1">
+                            <i class="ph-bold ph-users-three text-emerald-400"></i> Trabajo en Equipo
+                        </span>
+                    </div>
+
+                    <!-- Panel expandible con detalles adicionales (JS) -->
+                    <div id="submodule-2-details" class="hidden mt-4 pt-4 border-t border-slate-800/80 text-xs text-slate-300 space-y-2 animate-fade-in">
+                        <p class="text-indigo-300 font-semibold flex items-center gap-1">
+                            <i class="ph-fill ph-star"></i> Enfoque Práctico:
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 text-slate-400 pl-1">
+                            <li>Planificación de iteraciones (Sprints).</li>
+                            <li>Roles de desarrollo y tableros ágiles.</li>
+                            <li>Resolución iterativa de problemas complejos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TERMINAL INTERACTIVA SIMULADA -->
+        <div class="w-full max-w-2xl mt-10 rounded-2xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden">
+            <div class="bg-slate-900/90 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                    <span class="text-xs font-mono text-slate-400 ml-2">bienvenida.js — CBTa 197</span>
+                </div>
+                <button onclick="runCodeAnimation()" class="text-xs font-mono bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-lg transition-colors flex items-center gap-1">
+                    <i class="ph-bold ph-play text-xs"></i> Ejecutar
+                </button>
+            </div>
+            <div class="p-5 font-mono text-xs sm:text-sm text-slate-300 space-y-2">
+                <p class="text-slate-500">// Presiona "Ejecutar" para reiniciar la animación</p>
+                <div id="code-output" class="text-emerald-400 leading-relaxed min-h-[48px]">
+                    <!-- Texto animado vía JS -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="relative z-20 w-full border-t border-slate-800/80 bg-slate-950/80 backdrop-blur-md py-6 px-6 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-squares-four text-cyan-400"></i>
+                <span>CBTa N°197 • DGETA Sonora</span>
+            </div>
+            <p>Técnico en Programación — Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // --- 1. LÓGICA DEL CANVAS DE PARTÍCULAS (Red Neuronal) ---
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        const numberOfParticles = 45;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.speedY = (Math.random() - 0.5) * 0.6;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(56, 189, 248, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let dx = particlesArray[a].x - particlesArray[b].x;
+                    let dy = particlesArray[a].y - particlesArray[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 130) {
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${1 - distance / 130})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        // --- 2. LUZ FLOTANTE SEGÚN EL CURSOR ---
+        const spotlight = document.getElementById('spotlight');
+        window.addEventListener('mousemove', (e) => {
+            spotlight.style.transform = `translate(${e.clientX - 300}px, ${e.clientY - 300}px)`;
+        });
+
+        // --- 3. EFECTO 3D TILT EN LA TARJETA PRINCIPAL ---
+        const heroCard = document.getElementById('hero-card');
+        heroCard.addEventListener('mousemove', (e) => {
+            const rect = heroCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -4;
+            const rotateY = ((x - centerX) / centerX) * 4;
+
+            heroCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        heroCard.addEventListener('mouseleave', () => {
+            heroCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        });
+
+        // --- 4. EXPANSIÓN INTERACTIVA DE SUBMÓDULOS ---
+        function toggleSubmoduleDetails(num) {
+            const el = document.getElementById(`submodule-${num}-details`);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // --- 5. ANIMACIÓN DE ESCRITURA EN TERMINAL SIMULADA ---
+        const codeOutput = document.getElementById('code-output');
+        const message = 'const alumno = new Estudiante("CBTa 197");\nalumno.iniciarCurso("Técnico en Programación");\nconsole.log("¡Éxito en el ciclo escolar 2026-2027!");';
+
+        function runCodeAnimation() {
+            codeOutput.innerHTML = '';
+            let index = 0;
+            
+            function typeNextChar() {
+                if (index < message.length) {
+                    const char = message.charAt(index);
+                    if (char === '\n') {
+                        codeOutput.innerHTML += '<br/>';
+                    } else {
+                        codeOutput.innerHTML += char;
+                    }
+                    index++;
+                    setTimeout(typeNextChar, 35);
+                } else {
+                    codeOutput.innerHTML += ' <span class="animate-pulse">▌</span>';
+                }
+            }
+            
+            typeNextChar();
+        }
+
+        // Iniciar animación de la terminal al cargar
+        window.onload = function() {
+            runCodeAnimation();
+        };
+    </script>
+</body>
+</html>
